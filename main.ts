@@ -1,7 +1,7 @@
-import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting, Menu, request } from 'obsidian';
+import { App, Modal, Notice, Plugin, PluginSettingTab, Setting, requestUrl } from 'obsidian';
 // Remember to rename these classes and interfaces!
 
-interface MyPluginSettings {
+interface MoviePluginSettings {
 	omdbapikey: string;
 	youtubeapikey: string;
 	template: string;
@@ -14,7 +14,7 @@ interface MyPluginSettings {
 const extractMovieUrl = "https://www.omdbapi.com/?apikey={key}&t=";
 const youtubeApiUrl = "https://www.googleapis.com/youtube/v3/search?key={key}&type=video&maxResults=1&videoEmbeddable=true&q=";
 
-const DEFAULT_SETTINGS: MyPluginSettings = {
+const DEFAULT_SETTINGS: MoviePluginSettings = {
 	omdbapikey: "",
 	youtubeapikey: "",
 	template: "{{Poster}}\n**Length:** {{Runtime}}\n**Genre:** {{Genre}}\n**Actors:** {{Actors}}\n**Year:** {{Year}}\n**IMDB Score:** {{imdbRating}} ({{imdbVotes}})\n\n{{Plot}}\n\n{{Trailer}}",
@@ -24,26 +24,26 @@ const DEFAULT_SETTINGS: MyPluginSettings = {
 	imageSize: 200,
 }
 
-export default class MyPlugin extends Plugin {
-	settings: MyPluginSettings;
+export default class MoviePlugin extends Plugin {
+	settings: MoviePluginSettings;
 	youtubeApiUrl: string;
 	omdbApiUrl: string;
 
 	async addImageToAssets(url: string, fileName: string) {
 		const { vault } = this.app;
 		const assetsPath = this.settings.assetPath;
-		const response = await fetch(url);
-		const arrayBuffer = await response.arrayBuffer();
+		const response = await requestUrl(url);
+		const arrayBuffer = response.arrayBuffer;
 		await vault.createBinary(assetsPath + "/" + fileName, arrayBuffer);
 	}
 
 	async getTrailerOnYoutube(title: string) {
 		const url = this.youtubeApiUrl + title + " trailer";
-		let response = await request({
+		let response = await requestUrl({
 			url: url,
 			method: "GET",
 		});
-		response = JSON.parse(response).items[0].id.videoId;
+		response = response.json.items[0].id.videoId;
 		return response;
 	}
 
@@ -114,12 +114,12 @@ export default class MyPlugin extends Plugin {
 	async crawlMovie(text: string) {
 		const movieUrl = this.getUrl(text);
 		try {
-			const response = await request({
+			const response = await requestUrl({
 				url: movieUrl,
 				method: "GET",
 			});
 			console.log(response);
-			const movie = JSON.parse(response);
+			const movie = response.json;
 			return movie;
 		} catch (e) {
 			new Notice("Movie not found.");
@@ -157,12 +157,6 @@ export default class MyPlugin extends Plugin {
 				}).open();
 			}
 		});
-		// Perform additional things with the ribbon
-		ribbonIconEl.addClass('my-plugin-ribbon-class');
-
-		// This adds a status bar item to the bottom of the app. Does not work on mobile apps.
-		const statusBarItemEl = this.addStatusBarItem();
-		statusBarItemEl.setText('Status Bar Text');
 
 		// This adds a simple command that can be triggered anywhere
 		this.addCommand({
@@ -176,15 +170,6 @@ export default class MyPlugin extends Plugin {
 		});
 
 		this.addSettingTab(new SampleSettingTab(this.app, this));
-
-		// If the plugin hooks up any global DOM events (on parts of the app that doesn't belong to this plugin)
-		// Using this function will automatically remove the event listener when this plugin is disabled.
-		this.registerDomEvent(document, 'click', (evt: MouseEvent) => {
-			console.log('click', evt);
-		});
-
-		// When registering intervals, this function will automatically clear the interval when the plugin is disabled.
-		this.registerInterval(window.setInterval(() => console.log('setInterval'), 5 * 60 * 1000));
 	}
 
 	onunload() {
@@ -239,9 +224,9 @@ export class MovieModal extends Modal {
 }
 
 class SampleSettingTab extends PluginSettingTab {
-	plugin: MyPlugin;
+	plugin: MoviePlugin;
 
-	constructor(app: App, plugin: MyPlugin) {
+	constructor(app: App, plugin: MoviePlugin) {
 		super(app, plugin);
 		this.plugin = plugin;
 	}
