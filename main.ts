@@ -1,4 +1,4 @@
-import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting, Menu, request, fs } from 'obsidian';
+import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting, Menu, request } from 'obsidian';
 // Remember to rename these classes and interfaces!
 
 interface MyPluginSettings {
@@ -43,9 +43,8 @@ export default class MyPlugin extends Plugin {
 			url: url,
 			method: "GET",
 		});
-		response = JSON.parse(response);
-		console.log(response);
-		return response.items[0].id.videoId;
+		response = JSON.parse(response).items[0].id.videoId;
+		return response;
 	}
 
 	async formatter(data: any, template: string) {
@@ -148,7 +147,7 @@ export default class MyPlugin extends Plugin {
 
 		// This creates an icon in the left ribbon.
 		const ribbonIconEl = this.addRibbonIcon('clapperboard', 'Get Movie', (event) => {
-			const sel = window.getSelection();
+			const sel = window.getSelection() ?? "";
 			const text = sel.toString();
 			if (text) {
 				this.crawlAndAdd(text);
