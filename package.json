@@ -1,7 +1,7 @@
 {
-	"name": "obsidian-sample-plugin",
-	"version": "1.0.0",
-	"description": "This is a sample plugin for Obsidian (https://obsidian.md)",
+	"name": "obsidian-movie",
+	"version": "0.1.0",
+	"description": "This plugin is a simple plugin that allows you to crawl movie data from Omdb and Youtube trailers.",
 	"main": "main.js",
 	"scripts": {
 		"dev": "node esbuild.config.mjs",
