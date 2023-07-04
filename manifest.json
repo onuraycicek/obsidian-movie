@@ -3,7 +3,7 @@
 	"name": "Movie",
 	"version": "0.1.0",
 	"minAppVersion": "0.15.0",
-	"description": "This is a plugin for Obsidian that allows you to search for movies info and trailers.",
+	"description": "Search for movies and trailers.",
 	"author": "Onur Ayçiçek",
 	"authorUrl": "https://onuraycicek.com.tr",
 	"isDesktopOnly": false

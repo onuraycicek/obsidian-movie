@@ -236,8 +236,6 @@ class SampleSettingTab extends PluginSettingTab {
 
 		containerEl.empty();
 
-		containerEl.createEl('h2', { text: 'Settings for my awesome plugin.' });
-
 		const variables = ["Title", "Year", "Rated", "Released", "Runtime", "Genre", "Director", "Writer", "Actors", "Plot", "Language", "Country", "Awards", "Poster", "Metascore", "imdbRating", "imdbVotes", "imdbID", "Type", "DVD", "BoxOffice"];
 
 		const variablesStr = variables.map((variable) => {
@@ -272,6 +270,8 @@ class SampleSettingTab extends PluginSettingTab {
 					this.plugin.updateKeys();
 				}));
 
+		containerEl.createEl('h2', { text: 'Structure' });
+
 		new Setting(containerEl)
 			.setName('Template')
 			.setDesc('It\'s a template for your movie note.')
@@ -296,7 +296,7 @@ class SampleSettingTab extends PluginSettingTab {
 				));
 
 		new Setting(containerEl)
-			.setName('File Name')
+			.setName('File name')
 			.setDesc('It\'s a file name for your movie note')
 			.addText(text => text
 				.setPlaceholder('Enter your file name')
@@ -330,6 +330,7 @@ class SampleSettingTab extends PluginSettingTab {
 					await this.plugin.saveSettings();
 				}
 				));
+		containerEl.createEl('h2', { text: 'Advanced' });
 
 		new Setting(containerEl)
 			.setName('Image Size')
