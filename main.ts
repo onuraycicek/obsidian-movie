@@ -111,7 +111,7 @@ export default class MoviePlugin extends Plugin {
 		if (/tt\d+$/.test(text))
 			return this.omdbApiUrl + "i=" + text // this is an imdb ID
 	  	else if (/\s\([\d]{4}\)/.test(text)) 
-			return this.omdbApiUrl + "t=" + text.replace(/\s\([\d]{4}\)/, "") + "&y=" +  text.match(/\(([\d]{4})\)/)[1] // movie year
+			return this.omdbApiUrl + "t=" + text.replace(/\s\([\d]{4}\)/, "") + "&y=" +  text.match(/\(([\d]{4})\)/)?.[1] // movie year
 	  	else 
 			return this.omdbApiUrl + "t=" + text // this is the movie title only
 	}
@@ -140,7 +140,7 @@ export default class MoviePlugin extends Plugin {
 		const mainPath = this.settings.mainPath;
 		const fileName = await this.formatter(movie, this.settings.fileName);
 		await vault.create(mainPath + "/" + fileName + ".md", text);
-		await vault.workspace.openLinkText('', mainPath + "/" + fileName + ".md");
+		await this.app.workspace.openLinkText('', mainPath + "/" + fileName + ".md");
 		new Notice("Movie added successfully!");
 	}
 
