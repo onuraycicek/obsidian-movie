@@ -140,7 +140,7 @@ export default class MoviePlugin extends Plugin {
 		const mainPath = this.settings.mainPath;
 		const fileName = await this.formatter(movie, this.settings.fileName);
 		await vault.create(mainPath + "/" + fileName + ".md", text);
-		await vault.workspace.openLinkText('', mainPath + "/" + fileName + ".md");
+		await this.app.workspace.openLinkText('', mainPath + "/" + fileName + ".md");
 		new Notice("Movie added successfully!");
 	}
 
