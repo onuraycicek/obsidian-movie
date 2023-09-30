@@ -11,7 +11,7 @@ interface MoviePluginSettings {
 	imageSize: number;
 }
 
-const extractMovieUrl = "https://www.omdbapi.com/?apikey={key}&t=";
+const extractMovieUrl = "https://www.omdbapi.com/?apikey={key}&";
 const youtubeApiUrl = "https://www.googleapis.com/youtube/v3/search?key={key}&type=video&maxResults=1&videoEmbeddable=true&q=";
 
 const DEFAULT_SETTINGS: MoviePluginSettings = {
@@ -108,7 +108,12 @@ export default class MoviePlugin extends Plugin {
 	}
 
 	getUrl(text: string) {
-		return this.omdbApiUrl + text;
+		if (/tt\d+$/.test(text))
+			return this.omdbApiUrl + "i=" + text // this is an imdb ID
+	  	else if (/\s\([\d]{4}\)/.test(text)) 
+			return this.omdbApiUrl + "t=" + text.replace(/\s\([\d]{4}\)/, "") + "&y=" +  text.match(/\(([\d]{4})\)/)[1] // movie year
+	  	else 
+			return this.omdbApiUrl + "t=" + text // this is the movie title only
 	}
 
 	async crawlMovie(text: string) {
