@@ -11,3 +11,9 @@ This plugin is a simple plugin that allows you to crawl movie data from [omdb](h
 3. You must have a folder named `movies` in your vault. You can change this folder name in the plugin settings (Main Path).
 4. You must have a folder named `assets` in your vault. You can change this folder name in the plugin settings (Image Path).
 5. That's it! You can use the command palette to search for movies. You can also use the hotkey `Ctrl+Alt+M` or you can click the movie icon in the ribbon.
+
+### Search Text Options
+1. You can search by Title
+2. Optionally, you can search by [IMDB title ID](https://developer.imdb.com/documentation/key-concepts#imdb-ids), eg. `tt13444014`
+3. Optionally, in search by title, you can specify Year within parenthesis, eg. `Movie Name (2023)`
+
