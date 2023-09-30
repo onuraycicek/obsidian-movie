@@ -120,6 +120,7 @@ export default class MoviePlugin extends Plugin {
 			});
 			console.log(response);
 			const movie = response.json;
+			movie.Title = movie.Title.replace(/[/\\?%*:|"<>]/g, '-');
 			return movie;
 		} catch (e) {
 			new Notice("Movie not found.");
