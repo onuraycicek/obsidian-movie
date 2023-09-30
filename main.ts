@@ -11,7 +11,7 @@ interface MoviePluginSettings {
 	imageSize: number;
 }
 
-const extractMovieUrl = "https://www.omdbapi.com/?apikey={key}&";
+const extractMovieUrl = "https://www.omdbapi.com/?apikey={key}&t=";
 const youtubeApiUrl = "https://www.googleapis.com/youtube/v3/search?key={key}&type=video&maxResults=1&videoEmbeddable=true&q=";
 
 const DEFAULT_SETTINGS: MoviePluginSettings = {
@@ -129,8 +129,8 @@ export default class MoviePlugin extends Plugin {
 			return movie;
 		} catch (e) {
 			new Notice("Movie not found.");
-			console.log(e);
-			console.log(movieUrl);
+			new Notice(e);
+			new Notice(movieUrl);
 			return;
 		}
 	}
@@ -140,7 +140,7 @@ export default class MoviePlugin extends Plugin {
 		const mainPath = this.settings.mainPath;
 		const fileName = await this.formatter(movie, this.settings.fileName);
 		await vault.create(mainPath + "/" + fileName + ".md", text);
-		await this.app.workspace.openLinkText('', mainPath + "/" + fileName + ".md");
+		await vault.workspace.openLinkText('', mainPath + "/" + fileName + ".md");
 		new Notice("Movie added successfully!");
 	}
 
