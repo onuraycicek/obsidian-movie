@@ -11,7 +11,7 @@ interface MoviePluginSettings {
 	imageSize: number;
 }
 
-const extractMovieUrl = "https://www.omdbapi.com/?apikey={key}&";
+const extractMovieUrl = "https://www.omdbapi.com/?apikey={key}&t=";
 const youtubeApiUrl = "https://www.googleapis.com/youtube/v3/search?key={key}&type=video&maxResults=1&videoEmbeddable=true&q=";
 
 const DEFAULT_SETTINGS: MoviePluginSettings = {
@@ -108,12 +108,7 @@ export default class MoviePlugin extends Plugin {
 	}
 
 	getUrl(text: string) {
-		if (/tt\d+$/.test(text))
-			return this.omdbApiUrl + "i=" + text // this is an imdb ID
-	  	else if (/\s\([\d]{4}\)/.test(text)) 
-			return this.omdbApiUrl + "t=" + text.replace(/\s\([\d]{4}\)/, "") + "&y=" +  text.match(/\(([\d]{4})\)/)[1] // movie year
-	  	else 
-			return this.omdbApiUrl + "t=" + text // this is the movie title only
+		return this.omdbApiUrl + text;
 	}
 
 	async crawlMovie(text: string) {
@@ -129,8 +124,8 @@ export default class MoviePlugin extends Plugin {
 			return movie;
 		} catch (e) {
 			new Notice("Movie not found.");
-			console.log(e);
-			console.log(movieUrl);
+			new Notice(e);
+			new Notice(movieUrl);
 			return;
 		}
 	}
@@ -139,9 +134,7 @@ export default class MoviePlugin extends Plugin {
 		const { vault } = this.app;
 		const mainPath = this.settings.mainPath;
 		const fileName = await this.formatter(movie, this.settings.fileName);
-		await vault.create(mainPath + "/" + fileName + ".md", text);
-		await vault.workspace.openLinkText('', mainPath + "/" + fileName + ".md");
-		new Notice("Movie added successfully!");
+		vault.create(mainPath + "/" + fileName + ".md", text);
 	}
 
 	updateKeys() {
