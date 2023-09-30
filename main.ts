@@ -129,8 +129,8 @@ export default class MoviePlugin extends Plugin {
 			return movie;
 		} catch (e) {
 			new Notice("Movie not found.");
-			new Notice(e);
-			new Notice(movieUrl);
+			console.log(e);
+			console.log(movieUrl);
 			return;
 		}
 	}
@@ -139,7 +139,9 @@ export default class MoviePlugin extends Plugin {
 		const { vault } = this.app;
 		const mainPath = this.settings.mainPath;
 		const fileName = await this.formatter(movie, this.settings.fileName);
-		vault.create(mainPath + "/" + fileName + ".md", text);
+		await vault.create(mainPath + "/" + fileName + ".md", text);
+		await vault.workspace.openLinkText('', mainPath + "/" + fileName + ".md");
+		new Notice("Movie added successfully!");
 	}
 
 	updateKeys() {
