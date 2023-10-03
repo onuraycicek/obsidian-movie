@@ -1,7 +1,7 @@
 {
 	"id": "movie-obsidian",
 	"name": "Movie",
-	"version": "0.2.3",
+	"version": "0.2.4",
 	"minAppVersion": "0.15.0",
 	"description": "Search for movies and trailers.",
 	"author": "Onur Ayçiçek",
