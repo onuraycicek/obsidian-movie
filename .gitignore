@@ -4,9 +4,11 @@
 # Intellij
 *.iml
 .idea
+.nova
 
 # npm
 node_modules
+package-lock.json
 
 # Don't include the compiled main.js file in the repo.
 # They should be uploaded to GitHub releases instead.
@@ -18,7 +20,5 @@ main.js
 # obsidian
 data.json
 
-# Exclude macOS Finder (System Explorer) View States
-.DS_Store
-yarn.lock
-package-lock.json
+# build
+out

@@ -205,7 +205,7 @@ export class MovieModal extends Modal {
 	onOpen() {
 		const { contentEl } = this;
 
-		contentEl.createEl("h1", { text: "Movie name" });
+		contentEl.createEl("h1", { text: "Movie name or IMDB id" });
 
 		new Setting(contentEl)
 			.setName("Name")
