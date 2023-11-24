@@ -1,10 +1,10 @@
 {
-	"id": "movie-obsidian",
-	"name": "Movie",
-	"version": "0.2.3",
-	"minAppVersion": "0.15.0",
-	"description": "Search for movies and trailers.",
-	"author": "Onur Ayçiçek",
-	"authorUrl": "https://onuraycicek.com.tr",
+	"id": "movie-obsidian-db",
+	"name": "Movie DB",
+	"version": "0.0.1",
+	"minAppVersion": "1.0.0",
+	"description": "Search and add movies and episoes with trailers!",
+	"author": "DrShajul",
+	"authorUrl": "https://doctorlife.in/obsidian",
 	"isDesktopOnly": false
 }
