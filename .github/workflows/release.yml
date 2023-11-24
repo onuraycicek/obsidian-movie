@@ -6,7 +6,7 @@ on:
             - "*"
 
 env:
-    PLUGIN_NAME: obsidian-movie # Change this to match the id of your plugin.
+    PLUGIN_NAME: obsidian-movie-db # Change this to match the id of your plugin.
 
 jobs:
     build:
