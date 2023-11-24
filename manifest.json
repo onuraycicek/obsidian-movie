@@ -1,7 +1,7 @@
 {
 	"id": "movie-obsidian-db",
 	"name": "Movie DB",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"minAppVersion": "1.0.0",
 	"description": "Search and add movies and episoes with trailers!",
 	"author": "DrShajul",
