@@ -11,7 +11,7 @@ interface MoviePluginSettings {
 	imageSize: number;
 }
 
-const extractMovieUrl = "https://www.omdbapi.com/?apikey={key}&t=";
+const extractMovieUrl = "https://www.omdbapi.com/?apikey={key}&";
 const youtubeApiUrl = "https://www.googleapis.com/youtube/v3/search?key={key}&type=video&maxResults=1&videoEmbeddable=true&q=";
 
 const DEFAULT_SETTINGS: MoviePluginSettings = {
