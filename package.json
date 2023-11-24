@@ -1,6 +1,6 @@
 {
 	"name": "movie-obsidian-db",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "This is a simple plugin that allows you to crawl movie data from Omdb with Youtube trailers.",
 	"main": "main.js",
 	"scripts": {
